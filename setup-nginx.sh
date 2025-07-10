@@ -22,10 +22,21 @@ service_enable(){
 }
 
 #Update firewall
-update_firewall(){
+firewalld_policy(){
   firewall-cmd --add-service={http,https} --permanent
   firewall-cmd --reload
 }
+
+update_firewall(){
+  if [[ $(firewalld --state 2>/dev/null) == "not running" ]]; then 
+    systemctl enable --now firewalld && firewalld_policy 
+  else 
+    firewalld_policy 
+  fi
+}
+
+
+
 
 # Calling the function in sequence
 get_latest_version
