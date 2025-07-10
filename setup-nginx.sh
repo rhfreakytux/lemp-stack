@@ -28,15 +28,12 @@ firewalld_policy(){
 }
 
 update_firewall(){
-  if [[ $(firewall-cmd --state 2>/dev/null) == "not running" ]]; then 
+  if [[ $(firewall-cmd --state > /dev/null) == "not running" ]]; then 
     systemctl enable --now firewalld && firewalld_policy 
   else 
     firewalld_policy 
   fi
 }
-
-
-
 
 # Calling the function in sequence
 get_latest_version
