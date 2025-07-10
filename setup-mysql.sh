@@ -16,5 +16,18 @@ install_mysql(){
   dnf install @mysql -y 
 }
 
+#Manage Service
+service_enable(){
+  systemctl enable --now mysqld
+}
+
+#Update firewall
+update_firewall(){
+  firewall-cmd --add-service=mysql --permanent
+  firewall-cmd --reload
+}
+
 get_latest_version
 install_mysql
+service_enable
+update_firewall

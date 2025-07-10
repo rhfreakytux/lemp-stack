@@ -16,5 +16,19 @@ install_nginx(){
   dnf module install nginx -y 
 }
 
+#Manage Service
+service_enable(){
+  systemctl enable --now nginx
+}
+
+#Update firewall
+update_firewall(){
+  firewall-cmd --add-service={http,https} --permanent
+  firewall-cmd --reload
+}
+
+# Calling the function in sequence
 get_latest_version
 install_nginx
+service_enable
+update_firewall
