@@ -2,20 +2,20 @@
 
 # Get the latest module stream number
 get_latest_version(){
-latest_nginx_stream=$(dnf module list nginx \
+latest_nginx_stream=nginx:$(dnf module list nginx \
   | awk '/^nginx/ {print $2}' \
   | grep -E '^[0-9]' \
   | sort -V \
   | tail -n1)
 
-latest_php_stream=$(dnf module list php \
+latest_php_stream=php:$(dnf module list php \
   | awk '/^php/ {print $2}' \
   | grep -E '^[0-9]' \
   | sort -V \
   | tail -n1)
 
 
-latest_mysql_stream=$(dnf module list mysql \
+latest_mysql_stream=mysql:$(dnf module list mysql \
   | awk '/^mysql/ {print $2}' \
   | grep -E '^[0-9]' \
   | sort -V \
