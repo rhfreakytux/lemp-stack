@@ -21,17 +21,18 @@ service_enable(){
   systemctl enable --now nginx
 }
 
-#Update firewall
+# Update firewall rules
 firewalld_policy(){
   firewall-cmd --add-service={http,https} --permanent
   firewall-cmd --reload
 }
 
+# Check and enable if needed
 update_firewall(){
-  if [[ $(firewall-cmd --state > /dev/null) == "not running" ]]; then 
-    systemctl enable --now firewalld && firewalld_policy 
-  else 
-    firewalld_policy 
+  if [[ $(firewall-cmd --state 2>&1) == "not running" ]]; then
+    systemctl enable --now firewalld && firewalld_policy
+  else
+    firewalld_policy
   fi
 }
 
