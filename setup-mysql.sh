@@ -21,10 +21,19 @@ service_enable(){
   systemctl enable --now mysqld
 }
 
-#Update firewall
-update_firewall(){
+# Update firewall rules
+firewalld_policy(){
   firewall-cmd --add-service=mysql --permanent
   firewall-cmd --reload
+}
+
+# Check and enable if needed
+update_firewall(){
+  if [[ $(firewall-cmd --state 2>&1) == "not running" ]]; then
+    systemctl enable --now firewalld && firewalld_policy
+  else
+    firewalld_policy
+  fi
 }
 
 get_latest_version
