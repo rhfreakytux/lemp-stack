@@ -17,8 +17,8 @@ install_php(){
   dnf install --setopt=install_weak_deps=False \
     php php-common php-cli \
     php-fpm php-mbstring php-opcache \
-    php-pdo php-xml php-gd \
-    php-mysqlnd mailcap libxslt -y
+    php-pdo php-xml php-gd zip \
+    php-mysqlnd mailcap libxslt unzip -y
 }
 
 get_latest_version
