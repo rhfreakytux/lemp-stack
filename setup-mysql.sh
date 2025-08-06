@@ -38,46 +38,7 @@ update_firewall(){
   fi
 }
 
-#Initialize Databse
-mysql_installation() {
-
-  expect <<EOF
-
-  spawn mysql_secure_installation
-
-  expect "Would you like to setup VALIDATE PASSWORD component?"
-  send "y\r"
-
-  expect "Please enter 0 = LOW, 1 = MEDIUM and 2 = STRONG:"
-  send "2\r"
-
-  expect "Please set the password for root here:"
-  send "$DB_PASSWORD\r"
-
-  expect "Re-enter new password:"
-  send "$DB_PASSWORD\r"
-
-  expect "Do you wish to continue with the password provided?"
-  send "y\r"
-
-  expect "Remove anonymous users?"
-  send "y\r"
-
-  expect "Disallow root login remotely?"
-  send "y\r"
-
-  expect "Remove test database and access to it?"
-  send "y\r"
-
-  expect "Reload privilege tables now?"
-  send "y\r"
-
-  expect eof
-EOF
-}
-
 get_latest_version
 install_mysql
 service_enable
 update_firewall
-mysql_installation
